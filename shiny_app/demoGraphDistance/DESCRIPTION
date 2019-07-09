@@ -3,7 +3,7 @@ Type: Package
 Title: A Demo Package Calculating A Shortest Path Distance On One Type Of Graph
 Version: 0.1.0
 Author: Who wrote it
-Maintainer: John Drummond <first name at ausset.net>
+Maintainer: John Drummond <john@ausset.net>
 Description: This is a package to calculate the shortest path distance 
     Use four spaces when indenting paragraphs within the Description.
 License: MIT + file LICENSE
@@ -11,4 +11,8 @@ Encoding: UTF-8
 LazyData: true
 Imports:
     futile.logger,
-    R6
+    R6,
+    stringi,
+    purrr,
+    stringr,
+    hashmap

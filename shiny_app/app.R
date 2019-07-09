@@ -4,6 +4,11 @@
 
 library(shiny)
 library(R6)
+library(futile.logger)
+library(stringi)
+library(stringr)
+library(purrr)
+library(hashmap)
 
 # Define UI for application that draws a histogram
 ui <- fluidPage(
