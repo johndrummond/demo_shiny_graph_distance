@@ -1,15 +1,18 @@
 
 
-#' Title
+#' Calculate distance between two u nodes on a network of u and p nodes
+#' More detail in https://github.com/johndrummond/demo_shiny_graph_distance
 #'
-#' @param u1_node
-#' @param u2_node
-#' @param graph_storage
+#' @param u1_node starting node
+#' @param u2_node ending node
+#' @param graph_storage object containing or wrapping graph data
 #'
-#' @return
+#' @return integer for the distance -1 if identical, 0 if no path, else 
+#' the number of p nodes between U1 and U2 on shortest path
 #' @export
 #'
 #' @examples
+#' get_p_distance("U1","U1",local_graph$load_from_string(src1))
 get_p_distance <- function(u1_node, u2_node, graph_storage){
   if(! isNonBlankSingleString(u1_node)) {flog.error("u1_node in get_p_distance function is invalid, should be a string")}
   if(! isNonBlankSingleString(u2_node)) {flog.error("u2_node in get_p_distance function is invalid, should be a string")}
