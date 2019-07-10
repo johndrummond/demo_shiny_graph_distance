@@ -15,4 +15,5 @@ Imports:
     stringi,
     purrr,
     stringr,
-    hashmap
+    hashmap,
+    data.table

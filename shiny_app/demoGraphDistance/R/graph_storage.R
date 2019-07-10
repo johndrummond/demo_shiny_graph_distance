@@ -78,11 +78,22 @@ UPGraphStorage <- R6::R6Class("UPGraphStorage",
 
       invisible(self)
     },
-    load_from_type = function(graphtype = "chain_of_u_nodes", u_node_count = 50) {
-      if(! is.integer(u_node_count) || u_node_count < 3) {flog.error("u_node_count must be an integer > 2")}
-      if(! graphtype %in% GRAPHTYPES) {flog.error(paste("graphtype must be one of", GRAPHTYPES))}
+    load_from_chain = function(u_node_count){
+      if (! is.integer(u_node_count) && ! u_node_count >1 ) {
+        flog.warn("load from chain requires an integer greater than 1 as parameter")
+        return()
+      }
+        srcdt <- data.table(idx=1:u_node_count)
+        srcdt[,idxp1:=shift(idx, type="lag", fill=0)]
+        srcdt[,ukv:=paste0("U",idx,":")]
+        srcdt[,`:=`(ukey=paste0("U",idx),uval=paste0("P",idx,"\u001F","P",idxp1))]
+        srcdt[,`:=`(pkey=paste0("P",idxp1),pval=paste0("U",idx,"\u001F","U",idxp1))]
 
-      invisible(self)
+        self$p_nodes_per_u_node <- hashmap::hashmap(srcdt$ukey,srcdt$uval)
+        self$u_nodes_per_p_node <- hashmap::hashmap(srcdt$pkey,srcdt$pval)
+        self$u_nodes_per_p_node[["P0"]] <- "U1"
+        self$u_nodes_per_p_node[[paste0("P",u_node_count)]] <- paste0("U",u_node_count)
+        invisible(self)
     }
 
 

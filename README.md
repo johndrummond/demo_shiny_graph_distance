@@ -7,36 +7,37 @@ This is a demonstration package, illustrating Shiny, running in Docker as an R p
 
 ## Issue Solved
 
-Consider a graph of two  types of nodes, U and P. 
+Consider a graph of two  types of nodes, U and P.
 
 Each node is only connected to nodes of the other type. All connections are of equal weight.
 
 Starting with two U nodes, what is the shortest distance between the nodes, where:
 
 If the nodes are the same the distance is defined as -1
-
 If the nodes are not connected, the distance is defined as 0
+If either of the nodes don't exist in the network, the distance is defined as 0
 
-Otherwise the distance is defined as the number P nodes on the shortest path between the U nodes?
+Otherwise the distance is defined as the number P nodes on the shortest path between the U nodes
 
 ## Algorithm
 
 This is a breadth first search, starting at both endpoints.
 
-Consider the nodes all marked gray, save for the two nodes U1 and U2 for which the distance is due to be calculated from and to. Consider these the start of two subnetworks and coloured red. 
+Consider the nodes all marked gray, save for the two nodes U1 and U2 for which the distance is due to be calculated from and to. Consider these the start of two subnetworks and coloured red.
 
 If the nodes are the same just return a distance of -1
+If either don't exist, but are not the same, just return a distance of 0
 
-While the distance is not found and it's not noted that either of the subnetworks has no unlooked at connections, alternatively step out the frontiers of each subnetwork to the next set of U nodes: 
+While the distance is not found and it's not noted that either of the subnetworks has no unlooked at connections, alternatively step out the frontiers of each subnetwork to the next set of U nodes:
 
-* for all U nodes on the frontier create one list of all connected P nodes that are not already coloured Red. This creates the next P node frontier. 
+* for all U nodes on the frontier create one list of all connected P nodes that are not already coloured Red. This creates the next P node frontier.
 
-* If there are no such P nodes then stop as the distance is 0, else colour them red. 
-* For all P node on this new P node frontier create one list of all connected U nodes that are not already coloured Red. 
+* If there are no such P nodes then stop as the distance is 0, else colour them red.
+* For all P node on this new P node frontier create one list of all connected U nodes that are not already coloured Red.
 * If one of this nodes is on the frontier of the other subnetwork, the shortest path has been found and is the number of Steps
-* If no new U nodes are found, then stop as the distance is 0, else colour them red. 
+* If no new U nodes are found, then stop as the distance is 0, else colour them red.
 
-The two subnetworks will grow, the areas of red increasing,  until they join giving the distance, or there is no join, giving the result of 0
+The two subnetworks will grow alternatively, the areas of red increasing,  until they either join giving the distance, or there is no join, giving the result of 0
 
 
 

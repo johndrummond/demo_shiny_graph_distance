@@ -1,7 +1,7 @@
 FROM rocker/shiny-verse:3.6.0
 
 # install other packages
-RUN install2.r data.table
+RUN install2.r R6 futile.logger stringi stringr purrr hashmap data.table networkD3
 
 #RUN Rscript -e "devtools::install_github('')"
 

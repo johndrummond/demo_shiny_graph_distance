@@ -41,3 +41,6 @@ test_that("checking existance of U and P nodes", {
   expect_equal(local_graph$load_from_string(src2)$has_u_node("U1"),TRUE)
   expect_equal(local_graph$load_from_string(src2)$has_p_node("P1"),TRUE)
 })
+test_that("loading a chain of nodes works", {
+  expect_equal(local_graph$load_from_chain(3)$get_as_string(),"U2:P2,P1\nU3:P3,P2\nU1:P1,P0")
+})
